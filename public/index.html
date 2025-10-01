@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epic Multi-Account AI Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Your future-ready, AI-powered dashboard for all your dev accounts. Built for Gemini, Copilot, and next-gen AI.">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #121629;
+      color: #ececec;
+      margin: 0;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(90deg, #0f3460 60%, #e94560 100%);
+      padding: 2rem 1rem 1.5rem 1rem;
+      text-align: center;
+      font-size: 2.3rem;
+      letter-spacing: 1.5px;
+      border-bottom: 3px solid #e94560;
+      font-weight: 700;
+      text-shadow: 0 2px 10px #0006;
+    }
+    main {
+      max-width: 950px;
+      margin: 2rem auto;
+      background: #16213e;
+      padding: 2.2rem 1rem 2.5rem 1rem;
+      border-radius: 22px;
+      box-shadow: 0 8px 32px #0007;
+    }
+    .start-here {
+      background: #e94560;
+      color: #fff;
+      padding: 1.4rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      font-size: 1.15rem;
+      box-shadow: 0 2px 16px #0003;
+      border-left: 7px solid #00ffae;
+    }
+    .start-here b {
+      color: #fff700;
+      font-size: 1.15em;
+    }
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.7rem 1.4rem;
+    }
+    .account-card {
+      background: #232946;
+      padding: 1.6rem 1rem 1.2rem 1rem;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px #0004;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .account-card h3 {
+      margin: 0 0 0.6rem 0;
+      color: #e94560;
+      font-size: 1.18rem;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    .account-card label {
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .account-card input[type="text"], .account-card input[type="url"] {
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #4e536e;
+      background: #181b2a;
+      color: #fff;
+      width: 100%;
+      margin-bottom: 0.8rem;
+      box-sizing: border-box;
+    }
+    .account-card button {
+      background: #e94560;
+      color: #fff;
+      font-size: 1rem;
+      padding: 0.46rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 0.25rem;
+      align-self: flex-end;
+      transition: background 0.2s;
+      font-weight: 500;
+    }
+    .account-card button:hover {
+      background: #be3144;
+    }
+    .account-status {
+      margin-top: 0.38rem;
+      font-size: 0.98rem;
+      color: #00ffae;
+      min-height: 1.2em;
+      font-weight: 500;
+    }
+    .dashboard-content {
+      margin-top: 2.5rem;
+      background: #22223b;
+      padding: 1.7rem 1rem;
+      border-radius: 15px;
+      min-height: 110px;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px #0002;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 2.8rem;
+      color: #9cf5e7;
+      font-size: 1.08rem;
+    }
+    .footer small {
+      color: #aaa;
+      font-size: 0.96em;
+    }
+    @media (max-width:650px) {
+      header { font-size: 1.2rem; padding: 1rem 0.3rem;}
+      main { padding: 1.1rem 0.4rem; }
+      .accounts-grid { gap: 1rem 0.7rem;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    🚀 Multi-Account AI Dashboard <span style="font-size:1.1rem;">— Future-Proof & Gemini Ready</span>
+  </header>
+  <main>
+    <!-- START HERE: Gemini, Copilot, or User -->
+    <section class="start-here">
+      <b>Welcome!</b> This dashboard is designed for <b>maximum AI compatibility</b>—including Gemini Advanced and Copilot.<br><br>
+      <b>How to Use:</b><br>
+      1. Enter your API key, token, or info for any service you use (Google, GitHub, etc).<br>
+      2. Your data stays local—nothing is sent anywhere except the APIs you connect.<br>
+      3. After entering a key, the dashboard will show your connected services.<br>
+      4. <b>Gemini Advanced:</b> You can read, modify, or extend this dashboard. See the "accounts-grid" and "dashboard-content" sections below.<br>
+      5. <b>Want new features?</b> Just ask your AI (or Copilot) to add widgets, integrations, or automations!
+    </section>
+
+    <h2 style="text-align:center; font-weight:600; letter-spacing:1px; margin-bottom:1.2rem;">🔑 Connect Your Developer Accounts & API Keys</h2>
+    <div class="accounts-grid">
+      <!-- Meta Quest -->
+      <div class="account-card">
+        <h3>Meta Quest Developer</h3>
+        <label for="metaQuestKey">API Key</label>
+        <input type="text" id="metaQuestKey" autocomplete="off" placeholder="Paste Meta Quest API key...">
+        <button onclick="saveKey('metaQuestKey')">Save</button>
+        <div class="account-status" id="metaQuestKey-status"></div>
+      </div>
+      <!-- GitHub -->
+      <div class="account-card">
+        <h3>GitHub Developer</h3>
+        <label for="githubKey">API Key / Token</label>
+        <input type="text" id="githubKey" autocomplete="off" placeholder="Paste GitHub API key...">
+        <button onclick="saveKey('githubKey')">Save</button>
+        <div class="account-status" id="githubKey-status"></div>
+      </div>
+      <!-- YouTube -->
+      <div class="account-card">
+        <h3>YouTube Developer</h3>
+        <label for="youtubeKey">API Key</label>
+        <input type="text" id="youtubeKey" autocomplete="off" placeholder="Paste YouTube API key...">
+        <button onclick="saveKey('youtubeKey')">Save</button>
+        <div class="account-status" id="youtubeKey-status"></div>
+      </div>
+      <!-- Google -->
+      <div class="account-card">
+        <h3>Google Developer</h3>
+        <label for="googleKey">API Key</label>
+        <input type="text" id="googleKey" autocomplete="off" placeholder="Paste Google API key...">
+        <button onclick="saveKey('googleKey')">Save</button>
+        <div class="account-status" id="googleKey-status"></div>
+      </div>
+      <!-- Gemini Advanced -->
+      <div class="account-card">
+        <h3>Gemini Advanced (Google AI)</h3>
+        <label for="geminiKey">API Key</label>
+        <input type="text" id="geminiKey" autocomplete="off" placeholder="Paste Gemini API key...">
+        <button onclick="saveKey('geminiKey')">Save</button>
+        <div class="account-status" id="geminiKey-status"></div>
+      </div>
+      <!-- iCloud -->
+      <div class="account-card">
+        <h3>iCloud Developer</h3>
+        <label for="icloudKey">App-Specific Password / Key</label>
+        <input type="text" id="icloudKey" autocomplete="off" placeholder="Paste iCloud key...">
+        <button onclick="saveKey('icloudKey')">Save</button>
+        <div class="account-status" id="icloudKey-status"></div>
+      </div>
+      <!-- Microsoft -->
+      <div class="account-card">
+        <h3>Microsoft Developer / Teams</h3>
+        <label for="microsoftKey">API Key / Token</label>
+        <input type="text" id="microsoftKey" autocomplete="off" placeholder="Paste Microsoft API key...">
+        <button onclick="saveKey('microsoftKey')">Save</button>
+        <div class="account-status" id="microsoftKey-status"></div>
+      </div>
+      <!-- Reddit -->
+      <div class="account-card">
+        <h3>Reddit Developer</h3>
+        <label for="redditKey">API Key</label>
+        <input type="text" id="redditKey" autocomplete="off" placeholder="Paste Reddit API key...">
+        <button onclick="saveKey('redditKey')">Save</button>
+        <div class="account-status" id="redditKey-status"></div>
+      </div>
+      <!-- Google Business -->
+      <div class="account-card">
+        <h3>Google Business</h3>
+        <label for="googleBusinessKey">API Key</label>
+        <input type="text" id="googleBusinessKey" autocomplete="off" placeholder="Paste Google Business API key...">
+        <button onclick="saveKey('googleBusinessKey')">Save</button>
+        <div class="account-status" id="googleBusinessKey-status"></div>
+      </div>
+      <!-- GoDaddy -->
+      <div class="account-card">
+        <h3>GoDaddy Domain</h3>
+        <label for="godaddyDomain">Domain Name</label>
+        <input type="text" id="godaddyDomain" autocomplete="off" placeholder="e.g. yourdomain.com">
+        <button onclick="saveKey('godaddyDomain')">Save</button>
+        <div class="account-status" id="godaddyDomain-status"></div>
+      </div>
+      <!-- Webflow -->
+      <div class="account-card">
+        <h3>Webflow</h3>
+        <label for="webflowKey">API Key</label>
+        <input type="text" id="webflowKey" autocomplete="off" placeholder="Paste Webflow API key...">
+        <button onclick="saveKey('webflowKey')">Save</button>
+        <div class="account-status" id="webflowKey-status"></div>
+      </div>
+      <!-- Meshy AI Assets -->
+      <div class="account-card">
+        <h3>Meshy AI Assets</h3>
+        <label for="meshyAssetLink">Asset Link / Key</label>
+        <input type="text" id="meshyAssetLink" autocomplete="off" placeholder="Paste Meshy asset link or key...">
+        <button onclick="saveKey('meshyAssetLink')">Save</button>
+        <div class="account-status" id="meshyAssetLink-status"></div>
+      </div>
+      <!-- Godot Engine (Quest 2) -->
+      <div class="account-card">
+        <h3>Godot Engine (Quest 2)</h3>
+        <label for="godotProject">Project Path / Name</label>
+        <input type="text" id="godotProject" autocomplete="off" placeholder="Godot project path or name...">
+        <button onclick="saveKey('godotProject')">Save</button>
+        <div class="account-status" id="godotProject-status"></div>
+      </div>
+      <!-- GameMaker Studio 2 -->
+      <div class="account-card">
+        <h3>GameMaker Studio 2</h3>
+        <label for="gms2Key">License Key / Project Name</label>
+        <input type="text" id="gms2Key" autocomplete="off" placeholder="Paste GMS2 license key or project name...">
+        <button onclick="saveKey('gms2Key')">Save</button>
+        <div class="account-status" id="gms2Key-status"></div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD CONTENT AREA -->
+    <div class="dashboard-content" id="dashboardContent">
+      <b>Welcome!</b> Connect your developer accounts above to unlock dashboard features.<br>
+      Your API keys and credentials are stored <u>only in your browser</u> for privacy.<br><br>
+      <i>After connecting, you'll see widgets and insights for each platform right here!<br>
+      This dashboard is designed for future AI automation and new integrations.</i>
+    </div>
+  </main>
+  <div class="footer">
+    Made with ❤️ by MetaCryptoNFT & Copilot<br>
+    <small>Open-source, modular, future-proof — your data stays local!<br>
+    Designed for Gemini, Copilot, and next-generation AIs.</small>
+  </div>
+  <script>
+    // ========== MAXIMIZED FOR AI COMPATIBILITY ==========
+    // List of all key fields
+    const allKeys = [
+      "metaQuestKey", "githubKey", "youtubeKey", "googleKey", "geminiKey", "icloudKey", "microsoftKey", "redditKey",
+      "googleBusinessKey", "godaddyDomain", "webflowKey", "meshyAssetLink", "godotProject", "gms2Key"
+    ];
+
+    // On load, restore saved keys and show status
+    window.onload = function() {
+      allKeys.forEach(key => {
+        const val = localStorage.getItem(key);
+        if(val && document.getElementById(key)) {
+          document.getElementById(key).value = val;
+          document.getElementById(key+"-status").innerText = "✔️ Saved!";
+        }
+      });
+      showDashboardWidgets();
+    };
+
+    // Save any key to localStorage with user feedback
+    function saveKey(keyId) {
+      const val = document.getElementById(keyId).value.trim();
+      if(val.length < 2) {
+        document.getElementById(keyId+"-status").innerText = "Please enter a valid value.";
+        return;
+      }
+      localStorage.setItem(keyId, val);
+      document.getElementById(keyId+"-status").innerText = "✔️ Saved!";
+      showDashboardWidgets();
+    }
+
+    // Display dashboard widgets for connected accounts
+    function showDashboardWidgets() {
+      let html = "<b>Your Connected Accounts:</b><ul>";
+      const keyLabels = [
+        {id:"metaQuestKey", label:"Meta Quest"}, {id:"githubKey", label:"GitHub"}, {id:"youtubeKey", label:"YouTube"},
+        {id:"googleKey", label:"Google"}, {id:"geminiKey", label:"Gemini Advanced"}, {id:"icloudKey", label:"iCloud"},
+        {id:"microsoftKey", label:"Microsoft Teams"}, {id:"redditKey", label:"Reddit"}, {id:"googleBusinessKey", label:"Google Business"},
+        {id:"godaddyDomain", label:"GoDaddy Domain"}, {id:"webflowKey", label:"Webflow"}, {id:"meshyAssetLink", label:"Meshy AI"},
+        {id:"godotProject", label:"Godot Project"}, {id:"gms2Key", label:"GameMaker Studio 2"}
+      ];
+      let connected = false;
+      keyLabels.forEach(k => {
+        const v = localStorage.getItem(k.id);
+        if (v && v.length > 1) {
+          html += `<li><b>${k.label}:</b> <span style=\"color:#00ffae;\">Connected</span></li>`;
+          connected = true;
+        }
+      });
+      html += "</ul>";
+      if (!connected) {
+        html += "<i>Connect at least one account above to see platform widgets and features.</i>";
+      } else {
+        html += "<hr><b>Next:</b> Ask Gemini or Copilot to add a widget for any service!";
+      }
+      document.getElementById("dashboardContent").innerHTML = html;
+    }
+    // ========== END AI-COMPATIBLE SECTION ==========
+  </script>
+</body>
+</html>
